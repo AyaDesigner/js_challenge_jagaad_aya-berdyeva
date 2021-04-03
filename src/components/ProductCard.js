@@ -10,45 +10,47 @@ import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
     root: {
-      maxWidth: 345,
+        maxWidth: 345,
     },
     media: {
-      height: 140,
+        height: 240,
     },
-  });
-  
+});
 
-const ProductCard = () => {
+
+const ProductCard = ({ product }) => {
 
     const classes = useStyles();
 
-    return ( 
+    return (
         <Card className={classes.root}>
-        <CardActionArea>
-          <CardMedia
-            className={classes.media}
-            image="/static/images/cards/contemplative-reptile.jpg"
-            title="Contemplative Reptile"
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
-              Lizard
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-              Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-              across all continents except Antarctica
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-        <CardActions>
-          <Button size="small" color="primary">
-            Share
-          </Button>
-          <Button size="small" color="primary">
-            Learn More
-          </Button>
-        </CardActions>
-      </Card> );
+            <CardActionArea>
+                <CardMedia
+                    className={classes.media}
+                    image={product.cover_image_url}
+                    title="Contemplative Reptile"
+                />
+                <CardContent>
+                    <Typography gutterBottom variant="h8" component="h4">
+                        {product.title}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary" component="p">
+                        {product.description}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary" component="p">
+                        {product.retail_price.formatted_value}
+                    </Typography>
+                </CardContent>
+            </CardActionArea>
+            <CardActions>
+                <Button size="small" color="primary">
+                    Add to shopping bag
+                </Button>
+                <Button size="small" color="primary">
+                    Add to favorites
+                </Button>
+            </CardActions>
+        </Card>);
 }
- 
+
 export default ProductCard;
