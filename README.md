@@ -10,10 +10,11 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 `npm install`
 
-## 3. Run the project. Open [http://localhost:3000](http://localhost:3000) to view it in the browser. The page will reload if you make edits.\
+## 3. Run the project. 
 
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser. The page will reload if you make edits.
 `npm start`
 
-### Demo
+## Demo
 
 [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
