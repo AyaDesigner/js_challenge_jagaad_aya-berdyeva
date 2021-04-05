@@ -20,15 +20,19 @@ function App() {
     setProductsInFavorites(copyOfProductsInFavorites);
   }
 
+  const removeFromShoppingBag = (product) => {
+    setProductsInShoppingBag(productsInShoppingBag.filter(productInBag => productInBag.uuid !== product.uuid))
+
+  }
+
   const removeProductFromFavorites = (product) => {
-    console.log("hey")
     setProductsInFavorites(productsInFavorites.filter(favoriteProduct => favoriteProduct.uuid !== product.uuid));
   }
 
 
   return (
     <div className="App">
-      <ShoppingContext.Provider value={{productsInShoppingBag, productsInFavorites, addToShoppingBag, addToFavorites, removeProductFromFavorites}}>
+      <ShoppingContext.Provider value={{productsInShoppingBag, productsInFavorites, addToShoppingBag, addToFavorites, removeFromShoppingBag, removeProductFromFavorites}}>
           <Dashboard />
       </ShoppingContext.Provider>
     </div>

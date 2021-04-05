@@ -17,6 +17,9 @@ const useStyles = makeStyles({
     media: {
         height: 240,
     },
+    priceDiscount: {
+        textDecoration: 'line-through',
+    }
 });
 
 
@@ -61,12 +64,13 @@ const ProductCard = ({ product }) => {
                     <Typography gutterBottom variant="h6" component="h4">
                         {product.title}
                     </Typography>
-                    <Typography variant="body2" color="textSecondary" component="p">
-                        {product.description}
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary" component="p">
-                        {product.retail_price.formatted_value}
-                    </Typography>
+                        <Typography variant="body2" color="textSecondary" component="p">
+                            {product.description}
+                        </Typography>
+                            {product.discount > 0 && <Typography className={classes.priceDiscount} color="error">{product.original_retail_price.formatted_value}</Typography>}
+                        <Typography variant="body2" color="textSecondary" component="p">
+                            {product.retail_price.formatted_value}
+                        </Typography>
                 </CardContent>
             </CardActionArea>
             <CardActions>
@@ -88,7 +92,6 @@ const ProductCard = ({ product }) => {
                         Add to favorites
                     </Button>
                 }
-
             </CardActions>
         </Card>
     );

@@ -6,6 +6,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import DeleteIcon from '@material-ui/icons/Delete';
+import {nanoid} from 'nanoid';
 
 
 const Favorites = () => {
@@ -26,7 +27,11 @@ const Favorites = () => {
                             <React.Fragment>
                                 <FavoriteIcon {...bindTrigger(popupState)} />
                                 <Menu {...bindMenu(popupState)}>
-                                    {productsInFavorites.map((favoriteProduct) => <MenuItem>{favoriteProduct.title} <DeleteIcon onClick={() => removeProductFromFavorites(favoriteProduct)}></DeleteIcon></MenuItem>)}
+                                    {productsInFavorites.map((favoriteProduct) => 
+                                    <MenuItem key={nanoid()}><img src={favoriteProduct.cover_image_url} alt="img" width="60"></img>
+                                    <p>{favoriteProduct.title}</p>
+                                    <DeleteIcon onClick={() => removeProductFromFavorites(favoriteProduct)}></DeleteIcon>
+                                    </MenuItem>)}
                                 </Menu>
                             </React.Fragment>
                             :
