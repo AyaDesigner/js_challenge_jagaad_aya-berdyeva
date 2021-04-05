@@ -20,64 +20,78 @@ const useStyles = makeStyles({
 });
 
 
+
+
+
 const ProductCard = ({ product }) => {
 
     const classes = useStyles();
     const shoppingContext = useContext(ShoppingContext);
-    const [addedToShoppingBag, setAddedToShoppingBag] = useState(false);
-    const [addedToFavorites, setAddedToFavorites] = useState(false);
+    const productsInShoppingBag = shoppingContext.productsInShoppingBag;
+    const productsInFavorites = shoppingContext.productsInFavorites;
 
-    const addToShoppingBag = (price) => {
-        setAddedToShoppingBag(true);
-        shoppingContext.addToShoppingBag(price);
+
+
+    const addToShoppingBag = () => {
+        shoppingContext.addToShoppingBag(product);
     }
 
     const addToFavorites = () => {
-        setAddedToFavorites(true);
-        shoppingContext.addToFavorites();
+        shoppingContext.addToFavorites(product);
     }
 
-    return (    
-            <Card className={classes.root}>
-                <CardActionArea>
-                    <CardMedia
-                        className={classes.media}
-                        image={product.cover_image_url}
-                        title="Contemplative Reptile"
-                    />
-                    <CardContent>
-                        <Typography gutterBottom variant="h6" component="h4">
-                            {product.title}
-                        </Typography>
-                        <Typography variant="body2" color="textSecondary" component="p">
-                            {product.description}
-                        </Typography>
-                        <Typography variant="body2" color="textSecondary" component="p">
-                            {product.retail_price.formatted_value}
-                        </Typography>
-                    </CardContent>
-                </CardActionArea>
-                <CardActions>
-                    {addedToShoppingBag ? 
-                            <Button disabled>
-                                Added
-                            </Button> : 
-                            <Button variant="contained" size="small" color="secondary" onClick={() => addToShoppingBag(product.retail_price.value)}>
-                                Add to shopping bag
-                            </Button>} 
+    const checkIfProductIsInShoppingBag = () => {
+        return productsInShoppingBag.some((productInBag) => productInBag.uuid === product.uuid);
+    }
 
-                    {addedToFavorites ? 
-                            <Button disabled>
-                                Added
+    const checkIfAddedToFavorites = () => {
+        return productsInFavorites.some((productInFav) => productInFav.uuid === product.uuid);
+    }
+
+    return (
+
+        <Card className={classes.root}>
+            <CardActionArea>
+                <CardMedia
+                    className={classes.media}
+                    image={product.cover_image_url}
+                    title="Product title"
+                />
+                <CardContent>
+                    <Typography gutterBottom variant="h6" component="h4">
+                        {product.title}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary" component="p">
+                        {product.description}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary" component="p">
+                        {product.retail_price.formatted_value}
+                    </Typography>
+                </CardContent>
+            </CardActionArea>
+            <CardActions>
+
+                {checkIfProductIsInShoppingBag() ?
+                    <Button variant="contained" disabled>
+                        In the bag
                             </Button> :
-                            <Button size="small" color="primary" onClick={addToFavorites}>
-                                Add to favorites
-                            </Button>
-                            }      
-                    
-                </CardActions>
-            </Card>
-           );
+                    <Button variant="contained" size="small" color="secondary" onClick={() => addToShoppingBag()}>
+                        Add to bag
+                    </Button>
+                }
+
+                {checkIfAddedToFavorites() ?
+                    <Button disabled>
+                        Added to favorites
+                    </Button> :
+                    <Button size="small" color="primary" onClick={addToFavorites}>
+                        Add to favorites
+                    </Button>
+                }
+
+            </CardActions>
+        </Card>
+    );
 }
 
 export default ProductCard;

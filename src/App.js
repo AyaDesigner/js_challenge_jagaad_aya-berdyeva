@@ -1,27 +1,34 @@
 import './App.css';
-import React from 'react';
+import React, {useState} from 'react';
 import Dashboard from './components/Dashboard';
 import ShoppingContext from './context/shopping-context';
 
 
 function App() {
 
-  const [productsCounter, setProductsCounter] = React.useState(0);
-  const [totalPrice, setTotalPrice] = React.useState(0);
-  const [favorites, setFavorites] = React.useState(0);
+  const [productsInShoppingBag, setProductsInShoppingBag] = useState([]);
+  const [productsInFavorites, setProductsInFavorites] = useState([]);
 
-  const addToShoppingBag = (price) => {
-    setProductsCounter(productsCounter + 1);
-    setTotalPrice(totalPrice + price);
+  const addToShoppingBag = (product) => {
+    const copyOfProductsInShoppingBag = [...productsInShoppingBag];
+    copyOfProductsInShoppingBag.push(product);
+    setProductsInShoppingBag(copyOfProductsInShoppingBag);
   }
-  const addToFavorites = () =>{
-    setFavorites(favorites + 1);
+  const addToFavorites = (product) => {
+    const copyOfProductsInFavorites = [...productsInFavorites];
+    copyOfProductsInFavorites.push(product);
+    setProductsInFavorites(copyOfProductsInFavorites);
+  }
+
+  const removeProductFromFavorites = (product) => {
+    console.log("hey")
+    setProductsInFavorites(productsInFavorites.filter(favoriteProduct => favoriteProduct.uuid !== product.uuid));
   }
 
 
   return (
     <div className="App">
-      <ShoppingContext.Provider value={{productsCounter, totalPrice, favorites, addToShoppingBag, addToFavorites}}>
+      <ShoppingContext.Provider value={{productsInShoppingBag, productsInFavorites, addToShoppingBag, addToFavorites, removeProductFromFavorites}}>
           <Dashboard />
       </ShoppingContext.Provider>
     </div>
